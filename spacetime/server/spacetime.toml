@@ -1,0 +1,7 @@
+# SpacetimeDB configuration file
+
+# Database name (must follow identifier rules - no spaces or special characters)
+database_name = "lodi_module"
+
+# Module path (relative to this file)
+module_path = "."
