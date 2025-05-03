@@ -11,89 +11,53 @@ import {
   NavbarHeading, 
   Divider 
 } from "@blueprintjs/core";
-import { SpacetimeDBClient } from 'spacetimedb-sdk';
 import "@blueprintjs/core/lib/css/blueprint.css";
 import "@blueprintjs/icons/lib/css/blueprint-icons.css";
 import "./App.css";
 
 function App() {
-  const [client, setClient] = useState(null);
-  const [connected, setConnected] = useState(false);
-  const [deposits, setDeposits] = useState([]);
-  const [packages, setPackages] = useState([]);
+  // Mock data for demonstration
+  const [connected, setConnected] = useState(true);
+  const [deposits, setDeposits] = useState([
+    { Id: 1, Name: "North Depot", Location: "North City" },
+    { Id: 2, Name: "South Depot", Location: "South City" },
+    { Id: 3, Name: "East Depot", Location: "East City" },
+    { Id: 4, Name: "West Depot", Location: "West City" }
+  ]);
+  const [packages, setPackages] = useState([
+    { Id: 101, SourceDeposit: 1, DestinationDeposit: 2, State: "Preparing", Contents: ["Item1", "Item2"] },
+    { Id: 102, SourceDeposit: 2, DestinationDeposit: 3, State: "Prepared", Contents: ["Item3"] },
+    { Id: 103, SourceDeposit: 3, DestinationDeposit: 4, State: "OnTheWay", Contents: ["Item4", "Item5", "Item6"] },
+    { Id: 104, SourceDeposit: 1, DestinationDeposit: 4, State: "AtDestination", Contents: ["Item7"] }
+  ]);
   const [sourceId, setSourceId] = useState("");
   const [destId, setDestId] = useState("");
-  const [transportLogs, setTransportLogs] = useState([]);
-
+  
   useEffect(() => {
-    // Connect to SpacetimeDB
-    const connectToSpacetimeDB = async () => {
-      try {
-        const client = await SpacetimeDBClient.connect("ws://localhost:3000/db");
-        
-        // Subscribe to tables
-        await client.subscribe("SELECT * FROM deposit");
-        await client.subscribe("SELECT * FROM package");
-        await client.subscribe("SELECT * FROM transport_log");
-        
-        // Set up event handlers
-        client.db.deposit.onInsert = (deposit) => {
-          setDeposits(prev => [...prev, deposit]);
-        };
-        
-        client.db.deposit.onUpdate = (deposit) => {
-          setDeposits(prev => prev.map(d => d.Id === deposit.Id ? deposit : d));
-        };
-        
-        client.db.package.onInsert = (pkg) => {
-          setPackages(prev => [...prev, pkg]);
-        };
-        
-        client.db.package.onUpdate = (pkg) => {
-          setPackages(prev => prev.map(p => p.Id === pkg.Id ? pkg : p));
-        };
-        
-        client.db.transport_log.onInsert = (log) => {
-          setTransportLogs(prev => [...prev, log]);
-        };
-        
-        // Initialize state with current data
-        setDeposits(client.db.deposit.getAll());
-        setPackages(client.db.package.getAll());
-        setTransportLogs(client.db.transport_log.getAll());
-        
-        setClient(client);
-        setConnected(true);
-      } catch (error) {
-        console.error("Failed to connect to SpacetimeDB:", error);
-      }
-    };
-    
-    connectToSpacetimeDB();
-    
-    return () => {
-      // Cleanup on unmount
-      if (client) {
-        client.disconnect();
-      }
-    };
+    console.log("App initialized with mock data");
+    // This is a simplified version without SpacetimeDB connection
   }, []);
 
-  const handleCreateOrder = async (e) => {
+  const handleCreateOrder = (e) => {
     e.preventDefault();
     if (!sourceId || !destId || sourceId === destId) {
       alert("Please select different source and destination deposits");
       return;
     }
     
-    try {
-      await client.reducers.CreateTravelOrder(parseInt(sourceId), parseInt(destId));
-      setSourceId("");
-      setDestId("");
-    } catch (error) {
-      console.error("Failed to create travel order:", error);
-      alert("Failed to create travel order: " + error.message);
-    }
+    // Create a mock package
+    const newPackage = {
+      Id: Math.floor(Math.random() * 1000) + 200,
+      SourceDeposit: parseInt(sourceId),
+      DestinationDeposit: parseInt(destId),
+      State: "Preparing",
+      Contents: ["New Item"]
+    };
+    
+    setPackages(prev => [...prev, newPackage]);
+    setSourceId("");
+    setDestId("");
+    alert("New order created! (Mock implementation)");
   };
 
   // Helper to map state to progress fraction
@@ -208,21 +172,8 @@ function App() {
         </div>
         
         <div className="section">
-          <h2>Transport Log</h2>
-          <div className="log-container">
-            {transportLogs.length === 0 ? (
-              <p>No transport logs available</p>
-            ) : (
-              transportLogs.map(log => (
-                <div key={log.LogId} className="log-entry">
-                  <span>Package: {log.PackageId}</span>
-                  <span>From: {deposits.find(d => d.Id === log.FromDeposit)?.Name || log.FromDeposit}</span>
-                  <span>To: {deposits.find(d => d.Id === log.ToDeposit)?.Name || log.ToDeposit}</span>
-                  <span>Time: {new Date(log.CreatedTime).toLocaleString()}</span>
-                </div>
-              ))
-            )}
-          </div>
+          <h2>Transport Logs</h2>
+          <p>No transport logs available in demo mode</p>
         </div>
       </div>
     </div>

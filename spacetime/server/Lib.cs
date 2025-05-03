@@ -50,7 +50,7 @@ namespace LodiModule
     public partial class ModuleInitializer
     {
         [SpacetimeDB.Reducer]
-        public static void Init(ReducerContext ctx)
+        public static void SeedData(ReducerContext ctx)
         {
             Log.Info("Initing depo A");
             Log.Info("Find next");
@@ -169,6 +169,11 @@ namespace LodiModule
                 ToDeposit = destDepotId, 
                 CreatedTime = ctx.Timestamp 
             });
+        }
+
+        [SpacetimeDB.Reducer]
+        public static void InitClient(ReducerContext ctx){
+            //this should return the current state of the 
         }
 
         [SpacetimeDB.Reducer]

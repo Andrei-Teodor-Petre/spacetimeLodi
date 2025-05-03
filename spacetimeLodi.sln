@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "spacetime", "spacetime", "{696B108A-D451-41D0-1956-24F5DD737F07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StdbModule", "spacetime\server\StdbModule.csproj", "{F2BD1683-66C6-4B7F-497A-C45BBBEEC48B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "client", "spacetime\client\client.csproj", "{8BD52077-6537-60A7-30D8-BBF350625A32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F2BD1683-66C6-4B7F-497A-C45BBBEEC48B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2BD1683-66C6-4B7F-497A-C45BBBEEC48B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2BD1683-66C6-4B7F-497A-C45BBBEEC48B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2BD1683-66C6-4B7F-497A-C45BBBEEC48B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BD52077-6537-60A7-30D8-BBF350625A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BD52077-6537-60A7-30D8-BBF350625A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BD52077-6537-60A7-30D8-BBF350625A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BD52077-6537-60A7-30D8-BBF350625A32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F2BD1683-66C6-4B7F-497A-C45BBBEEC48B} = {696B108A-D451-41D0-1956-24F5DD737F07}
+		{8BD52077-6537-60A7-30D8-BBF350625A32} = {696B108A-D451-41D0-1956-24F5DD737F07}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {071A503C-2F9F-4326-BADC-11DBC5969C67}
+	EndGlobalSection
+EndGlobal
