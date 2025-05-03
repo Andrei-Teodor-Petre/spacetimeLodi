@@ -193,7 +193,12 @@ function App() {
         console.log("Created travel order.");
       });
 
-      subscribeToQueries(conn, ["SELECT * FROM message", "SELECT * FROM user"]);
+      subscribeToQueries(conn, [
+        "SELECT * FROM deposit",
+        "SELECT * FROM package",
+        "SELECT * FROM article",
+        "SELECT * FROM transport_log",
+      ]);
     };
 
     const onDisconnect = () => {
@@ -208,7 +213,7 @@ function App() {
     setConn(
       DbConnection.builder()
         .withUri("ws://localhost:3000")
-        .withModuleName("quickstart-chat")
+        .withModuleName("lodi")
         .withToken(localStorage.getItem("auth_token") || "")
         .onConnect(onConnect)
         .onDisconnect(onDisconnect)
